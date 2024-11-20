@@ -2,8 +2,8 @@ package org.example;
 
 
 import com.alibaba.fastjson.JSON;
-import org.example.application.IApiService;
-import org.example.domain.model.ApiData;
+import org.example.application.IConfigManageService;
+import org.example.domain.manage.model.vo.GatewayServerVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,13 +24,21 @@ public class ApiTest {
     private Logger logger = LoggerFactory.getLogger(ApiTest.class);
 
     @Resource
-    private IApiService apiService;
+    private IConfigManageService configManageService;
 
     @Test
-    public void test() {
-        List<ApiData> apiDataList = apiService.queryHttpStatementList();
-        logger.info("测试结果：{}", JSON.toJSONString(apiDataList));
+    public void test_queryGatewayServerList() {
+        List<GatewayServerVO> gatewayServerVOS = configManageService.queryGatewayServerList();
+        logger.info("测试结果：{}", JSON.toJSONString(gatewayServerVOS));
+    }
+
+    @Test
+    public void test_registerGatewayServerNode() {
+        configManageService.registerGatewayServerNode("10001", "api-gateway-g1", "电商支付网关", "127.0.0.196");
+        configManageService.registerGatewayServerNode("10001", "api-gateway-g2", "电商支付网关", "127.0.0.197");
+        configManageService.registerGatewayServerNode("10001", "api-gateway-g3", "电商配送网关", "127.0.0.198");
     }
 
 }
+
 
