@@ -1,6 +1,7 @@
 package org.example.interfaces;
 
 import org.example.application.IConfigManageService;
+import org.example.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import org.example.domain.manage.model.vo.GatewayServerVO;
 import org.example.infrastructure.common.ResponseCode;
 import org.example.infrastructure.common.Result;
@@ -66,5 +67,21 @@ public class GatewayConfigManage {
 
     }
 
+    /**
+     * 查询网关注册节点
+     * @param gatewayId
+     * @return
+     */
+    @PostMapping(value = "queryApplicationSystemRichInfo", produces = "application/json;charset=utf-8")
+    public Result<ApplicationSystemRichInfo> queryApplicationSystemRichInfo(@RequestParam String gatewayId) {
+        try {
+            logger.info("查询分配到网关下的待注册系统信息(系统、接口、方法) gatewayId：{}", gatewayId);
+            ApplicationSystemRichInfo applicationSystemRichInfo = configManageService.queryApplicationSystemRichInfo(gatewayId);
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), applicationSystemRichInfo);
+        } catch (Exception e) {
+            logger.error("查询分配到网关下的待注册系统信息(系统、接口、方法)异常 gatewayId：{}", gatewayId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), null);
+        }
+    }
 }
 

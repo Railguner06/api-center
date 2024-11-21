@@ -1,8 +1,6 @@
 package org.example.domain.manage.repository;
 
-import org.example.domain.manage.model.vo.GatewayServerDetailVO;
-import org.example.domain.manage.model.vo.GatewayServerVO;
-
+import org.example.domain.manage.model.vo.*;
 import java.util.List;
 
 /**
@@ -18,4 +16,13 @@ public interface IConfigManageRepository {
 
     boolean updateGatewayStatus(String gatewayId, String gatewayAddress, Integer available);
 
+    List<String> queryGatewayDistributionSystemIdList(String gatewayId);
+
+    List<ApplicationSystemVO> queryApplicationSystemList(List<String> systemIdList);
+
+    List<ApplicationInterfaceVO> queryApplicationInterfaceList(String systemId);
+
+    List<ApplicationInterfaceMethodVO> queryApplicationInterfaceMethodList(String systemId, String interfaceId);
+
 }
+

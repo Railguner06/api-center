@@ -79,7 +79,7 @@ public class RpcRegisterManage {
                                                               @RequestParam String interfaceId,
                                                               @RequestParam String methodId,
                                                               @RequestParam String methodName,
-                                                              @RequestParam String parameter_type,
+                                                              @RequestParam String parameterType,
                                                               @RequestParam String uri,
                                                               @RequestParam String httpCommandType,
                                                               @RequestParam Integer auth) {
@@ -90,7 +90,7 @@ public class RpcRegisterManage {
             applicationInterfaceVO.setInterfaceId(interfaceId);
             applicationInterfaceVO.setMethodId(methodId);
             applicationInterfaceVO.setMethodName(methodName);
-            applicationInterfaceVO.setParameterType(parameter_type);
+            applicationInterfaceVO.setParameterType(parameterType);
             applicationInterfaceVO.setUri(uri);
             applicationInterfaceVO.setHttpCommandType(httpCommandType);
             applicationInterfaceVO.setAuth(auth);
