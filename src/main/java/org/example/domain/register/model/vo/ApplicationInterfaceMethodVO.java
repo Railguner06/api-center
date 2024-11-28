@@ -1,4 +1,4 @@
-package org.example.domain.register.model;
+package org.example.domain.register.model.vo;
 
 /**
  * 接口方法VO

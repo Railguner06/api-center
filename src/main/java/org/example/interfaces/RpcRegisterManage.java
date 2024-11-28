@@ -1,9 +1,11 @@
 package org.example.interfaces;
 
+import org.example.application.IConfigManageService;
+import org.example.application.IMessageService;
 import org.example.application.IRegisterManageService;
-import org.example.domain.register.model.ApplicationInterfaceMethodVO;
-import org.example.domain.register.model.ApplicationInterfaceVO;
-import org.example.domain.register.model.ApplicationSystemVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceVO;
+import org.example.domain.register.model.vo.ApplicationSystemVO;
 import org.example.infrastructure.common.ResponseCode;
 import org.example.infrastructure.common.Result;
 import org.slf4j.Logger;
@@ -27,6 +29,10 @@ public class RpcRegisterManage {
 
     @Resource
     private IRegisterManageService registerManageService;
+    @Resource
+    private IConfigManageService configManageService;
+    @Resource
+    private IMessageService messageService;
 
     @PostMapping(value = "registerApplication", produces = "application/json;charset=utf-8")
     public Result<Boolean> registerApplication(@RequestParam String systemId,
@@ -85,16 +91,17 @@ public class RpcRegisterManage {
                                                               @RequestParam Integer auth) {
         try {
             logger.info("注册应用接口方法 systemId：{} interfaceId：{} methodId：{}", systemId, interfaceId, methodId);
-            ApplicationInterfaceMethodVO applicationInterfaceVO = new ApplicationInterfaceMethodVO();
-            applicationInterfaceVO.setSystemId(systemId);
-            applicationInterfaceVO.setInterfaceId(interfaceId);
-            applicationInterfaceVO.setMethodId(methodId);
-            applicationInterfaceVO.setMethodName(methodName);
-            applicationInterfaceVO.setParameterType(parameterType);
-            applicationInterfaceVO.setUri(uri);
-            applicationInterfaceVO.setHttpCommandType(httpCommandType);
-            applicationInterfaceVO.setAuth(auth);
-            registerManageService.registerApplicationInterfaceMethod(applicationInterfaceVO);
+            ApplicationInterfaceMethodVO applicationInterfaceMethodVO = new ApplicationInterfaceMethodVO();
+            applicationInterfaceMethodVO.setSystemId(systemId);
+            applicationInterfaceMethodVO.setInterfaceId(interfaceId);
+            applicationInterfaceMethodVO.setMethodId(methodId);
+            applicationInterfaceMethodVO.setMethodName(methodName);
+            applicationInterfaceMethodVO.setParameterType(parameterType);
+            applicationInterfaceMethodVO.setUri(uri);
+            applicationInterfaceMethodVO.setHttpCommandType(httpCommandType);
+            applicationInterfaceMethodVO.setAuth(auth);
+            registerManageService.registerApplicationInterfaceMethod(applicationInterfaceMethodVO);
+            // 推送注册消息
             return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), true);
         } catch (DuplicateKeyException e) {
             logger.warn("注册应用接口重复 systemId：{} interfaceId：{}", systemId, interfaceId);
@@ -105,4 +112,19 @@ public class RpcRegisterManage {
         }
     }
 
+    @PostMapping(value = "registerEvent", produces = "application/json;charset=utf-8")
+    public Result<Boolean> registerEvent(@RequestParam String systemId) {
+        try {
+            logger.info("应用信息注册完成通知 systemId：{}", systemId);
+            // 推送注册消息
+            String gatewayId = configManageService.queryGatewayDistribution(systemId);
+            messageService.pushMessage(gatewayId, systemId);
+            return new Result<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getInfo(), true);
+        } catch (Exception e) {
+            logger.error("应用信息注册完成通知失败 systemId：{}", systemId, e);
+            return new Result<>(ResponseCode.UN_ERROR.getCode(), e.getMessage(), false);
+        }
+    }
+
 }
+

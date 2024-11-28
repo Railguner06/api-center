@@ -84,7 +84,7 @@ public class ConfigManageRepository implements IConfigManageRepository {
 
     @Override
     public List<String> queryGatewayDistributionSystemIdList(String gatewayId) {
-        return gatewayDistributionDao.queryGatewayDistributionSystemIdList();
+        return gatewayDistributionDao.queryGatewayDistributionSystemIdList(gatewayId);
     }
 
     @Override
@@ -137,6 +137,11 @@ public class ConfigManageRepository implements IConfigManageRepository {
             applicationInterfaceMethodVOList.add(applicationInterfaceMethodVO);
         }
         return applicationInterfaceMethodVOList;
+    }
+
+    @Override
+    public String queryGatewayDistribution(String systemId) {
+        return gatewayDistributionDao.queryGatewayDistribution(systemId);
     }
 
 }

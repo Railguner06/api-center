@@ -1,8 +1,8 @@
 package org.example.infrastructure.repository;
 
-import org.example.domain.register.model.ApplicationInterfaceMethodVO;
-import org.example.domain.register.model.ApplicationInterfaceVO;
-import org.example.domain.register.model.ApplicationSystemVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceVO;
+import org.example.domain.register.model.vo.ApplicationSystemVO;
 import org.example.domain.register.repository.IRegisterManageRepository;
 import org.example.infrastructure.dao.IApplicationInterfaceDao;
 import org.example.infrastructure.dao.IApplicationInterfaceMethodDao;
@@ -62,4 +62,5 @@ public class RegisterManageRepository implements IRegisterManageRepository {
     }
 
 }
+
 

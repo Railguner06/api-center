@@ -10,6 +10,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,11 +42,13 @@ public class ConfigManageService implements IConfigManageService {
     }
 
     @Override
-    public ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId) {
+    public ApplicationSystemRichInfo queryApplicationSystemRichInfo(String gatewayId, String systemId) {
         // 1. 查询出网关ID对应的关联系统ID集合。也就是一个网关ID会被分配一些系统RPC服务注册进来，需要把这些服务查询出来。
-        List<String> systemIdList = configManageRepository.queryGatewayDistributionSystemIdList(gatewayId);
-        if(null == systemIdList || 0 == systemIdList.size()){
-            return new ApplicationSystemRichInfo();
+        List<String> systemIdList = new ArrayList<>();
+        if (null == systemId){
+            systemIdList = configManageRepository.queryGatewayDistributionSystemIdList(gatewayId);
+        } else {
+            systemIdList.add(systemId);
         }
         // 2. 查询系统ID对应的系统列表信息
         List<ApplicationSystemVO> applicationSystemVOList = configManageRepository.queryApplicationSystemList(systemIdList);
@@ -59,7 +62,15 @@ public class ConfigManageService implements IConfigManageService {
             }
             applicationSystemVO.setInterfaceList(applicationInterfaceVOList);
         }
-        return new ApplicationSystemRichInfo(gatewayId,applicationSystemVOList);
+        return new ApplicationSystemRichInfo(gatewayId, applicationSystemVOList);
     }
+
+    @Override
+    public String queryGatewayDistribution(String systemId) {
+        return configManageRepository.queryGatewayDistribution(systemId);
+    }
+
 }
+
+
 

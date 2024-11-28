@@ -1,9 +1,9 @@
 package org.example.domain.register.service;
 
 import org.example.application.IRegisterManageService;
-import org.example.domain.register.model.ApplicationInterfaceMethodVO;
-import org.example.domain.register.model.ApplicationInterfaceVO;
-import org.example.domain.register.model.ApplicationSystemVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceVO;
+import org.example.domain.register.model.vo.ApplicationSystemVO;
 import org.example.domain.register.repository.IRegisterManageRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,3 +34,4 @@ public class IRegisterManageServiceImpl implements IRegisterManageService {
     }
 
 }
+

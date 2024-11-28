@@ -4,11 +4,10 @@ package org.example;
 import com.alibaba.fastjson.JSON;
 import org.example.application.IConfigManageService;
 import org.example.application.IRegisterManageService;
-import org.example.domain.manage.model.aggregates.ApplicationSystemRichInfo;
 import org.example.domain.manage.model.vo.GatewayServerVO;
-import org.example.domain.register.model.ApplicationInterfaceMethodVO;
-import org.example.domain.register.model.ApplicationInterfaceVO;
-import org.example.domain.register.model.ApplicationSystemVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceVO;
+import org.example.domain.register.model.vo.ApplicationSystemVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -92,11 +91,6 @@ public class ApiTest {
         registerManageService.registerApplicationInterfaceMethod(applicationInterfaceVO02);
     }
 
-    @Test
-    public void test_queryApplicationSystemRichInfo(){
-        ApplicationSystemRichInfo result = configManageService.queryApplicationSystemRichInfo("api-gateway-g4");
-        logger.info("测试结果：{}", JSON.toJSONString(result));
-    }
 
 }
 

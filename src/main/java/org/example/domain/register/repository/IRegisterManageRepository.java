@@ -1,8 +1,8 @@
 package org.example.domain.register.repository;
 
-import org.example.domain.register.model.ApplicationInterfaceMethodVO;
-import org.example.domain.register.model.ApplicationInterfaceVO;
-import org.example.domain.register.model.ApplicationSystemVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
+import org.example.domain.register.model.vo.ApplicationInterfaceVO;
+import org.example.domain.register.model.vo.ApplicationSystemVO;
 
 /**
  * 接口注册仓储服务
