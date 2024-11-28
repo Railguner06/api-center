@@ -4,7 +4,11 @@ package org.example;
 import com.alibaba.fastjson.JSON;
 import org.example.application.IConfigManageService;
 import org.example.application.IRegisterManageService;
+import org.example.domain.manage.model.aggregates.ApplicationSystemRichInfo;
+import org.example.domain.manage.model.vo.GatewayDistributionVO;
+import org.example.domain.manage.model.vo.GatewayServerDetailVO;
 import org.example.domain.manage.model.vo.GatewayServerVO;
+import org.example.domain.message.Publisher;
 import org.example.domain.register.model.vo.ApplicationInterfaceMethodVO;
 import org.example.domain.register.model.vo.ApplicationInterfaceVO;
 import org.example.domain.register.model.vo.ApplicationSystemVO;
@@ -37,6 +41,25 @@ public class ApiTest {
     public void test_queryGatewayServerList() {
         List<GatewayServerVO> gatewayServerVOS = configManageService.queryGatewayServerList();
         logger.info("测试结果：{}", JSON.toJSONString(gatewayServerVOS));
+    }
+
+    @Test
+    public void test_queryGatewayServerDetailList() {
+        List<GatewayServerDetailVO> gatewayServerVOS = configManageService.queryGatewayServerDetailList();
+        logger.info("测试结果：{}", JSON.toJSONString(gatewayServerVOS));
+    }
+
+    @Test
+    public void test_queryGatewayDistributionList() {
+        List<GatewayDistributionVO> gatewayDistributionVOList = configManageService.queryGatewayDistributionList();
+        logger.info("测试结果：{}", JSON.toJSONString(gatewayDistributionVOList));
+    }
+
+    @Test
+    public void test_application() {
+        logger.info("测试结果：{}", JSON.toJSONString(configManageService.queryApplicationSystemList()));
+        logger.info("测试结果：{}", JSON.toJSONString(configManageService.queryApplicationInterfaceList()));
+        logger.info("测试结果：{}", JSON.toJSONString(configManageService.queryApplicationInterfaceMethodList()));
     }
 
     @Test
@@ -91,6 +114,20 @@ public class ApiTest {
         registerManageService.registerApplicationInterfaceMethod(applicationInterfaceVO02);
     }
 
+    @Test
+    public void test_queryApplicationSystemRichInfo() {
+        ApplicationSystemRichInfo result = configManageService.queryApplicationSystemRichInfo("api-gateway-g4", "api-gateway-test-provider");
+        logger.info("测试结果：{}", JSON.toJSONString(result));
+    }
+
+    @Resource
+    private Publisher publisher;
+
+    @Test
+    public void test_messages() throws InterruptedException {
+        publisher.pushMessage("api-gateway-g4", "api-gateway-test-provider");
+        Thread.sleep(50000);
+    }
 
 }
 

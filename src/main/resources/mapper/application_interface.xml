@@ -20,7 +20,43 @@
     <select id="queryApplicationInterfaceList" parameterType="java.lang.String" resultMap="applicationInterfaceMap">
         SELECT id, system_id, interface_id, interface_name, interface_version
         FROM application_interface
-        WHERE system_id = #{systemId}
+        <where>
+            <if test="systemId != null">
+                system_id = #{systemId}
+            </if>
+        </where>
     </select>
+
+    <select id="queryApplicationInterfaceListByPage"
+            parameterType="org.example.infrastructure.common.OperationRequest"
+            resultMap="applicationInterfaceMap">
+        SELECT id, system_id, interface_id, interface_name, interface_version
+        FROM application_interface
+        <where>
+            <if test="data != null and data.systemId != ''">
+                and system_id = #{data.systemId}
+            </if>
+            <if test="data != null and data.interfaceId != ''">
+                and interface_id = #{data.interfaceId}
+            </if>
+        </where>
+        order by id desc
+        limit #{pageStart},#{pageEnd}
+    </select>
+
+    <select id="queryApplicationInterfaceListCountByPage"
+            parameterType="org.example.infrastructure.common.OperationRequest"
+            resultType="java.lang.Integer">
+        SELECT count(id) FROM application_interface
+        <where>
+            <if test="data != null and data.systemId != ''">
+                and system_id = #{data.systemId}
+            </if>
+            <if test="data != null and data.interfaceId != ''">
+                and interface_id = #{data.interfaceId}
+            </if>
+        </where>
+    </select>
+
 
 </mapper>

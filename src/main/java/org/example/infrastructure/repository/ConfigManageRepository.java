@@ -46,6 +46,25 @@ public class ConfigManageRepository implements IConfigManageRepository {
     }
 
     @Override
+    public List<GatewayServerDetailVO> queryGatewayServerDetailList() {
+        List<GatewayServerDetail> gatewayServerDetails = gatewayServerDetailDao.queryGatewayServerDetailList();
+        List<GatewayServerDetailVO> gatewayServerDetailVOList = new ArrayList<>(gatewayServerDetails.size());
+        for (GatewayServerDetail gatewayServerDetail : gatewayServerDetails) {
+            GatewayServerDetailVO gatewayServerDetailVO = new GatewayServerDetailVO();
+            gatewayServerDetailVO.setId(gatewayServerDetail.getId());
+            gatewayServerDetailVO.setGroupId(gatewayServerDetail.getGroupId());
+            gatewayServerDetailVO.setGatewayId(gatewayServerDetail.getGatewayId());
+            gatewayServerDetailVO.setGatewayName(gatewayServerDetail.getGatewayName());
+            gatewayServerDetailVO.setGatewayAddress(gatewayServerDetail.getGatewayAddress());
+            gatewayServerDetailVO.setStatus(gatewayServerDetail.getStatus());
+            gatewayServerDetailVO.setCreateTime(gatewayServerDetail.getCreateTime());
+            gatewayServerDetailVO.setUpdateTime(gatewayServerDetail.getUpdateTime());
+            gatewayServerDetailVOList.add(gatewayServerDetailVO);
+        }
+        return gatewayServerDetailVOList;
+    }
+
+    @Override
     public boolean registerGatewayServerNode(String groupId, String gatewayId, String gatewayName, String gatewayAddress, Integer status) {
         GatewayServerDetail gatewayServerDetail = new GatewayServerDetail();
         gatewayServerDetail.setGroupId(groupId);
@@ -144,5 +163,24 @@ public class ConfigManageRepository implements IConfigManageRepository {
         return gatewayDistributionDao.queryGatewayDistribution(systemId);
     }
 
+    @Override
+    public List<GatewayDistributionVO> queryGatewayDistributionList() {
+        List<GatewayDistribution> gatewayDistributions = gatewayDistributionDao.queryGatewayDistributionList();
+        List<GatewayDistributionVO> gatewayDistributionVOList = new ArrayList<>(gatewayDistributions.size());
+        for (GatewayDistribution gatewayDistribution: gatewayDistributions){
+            GatewayDistributionVO gatewayDistributionVO = new GatewayDistributionVO();
+            gatewayDistributionVO.setId(gatewayDistribution.getId());
+            gatewayDistributionVO.setGroupId(gatewayDistribution.getGroupId());
+            gatewayDistributionVO.setGatewayId(gatewayDistribution.getGatewayId());
+            gatewayDistributionVO.setSystemId(gatewayDistribution.getSystemId());
+            gatewayDistributionVO.setSystemName(gatewayDistribution.getSystemName());
+            gatewayDistributionVO.setCreateTime(gatewayDistribution.getCreateTime());
+            gatewayDistributionVO.setUpdateTime(gatewayDistribution.getUpdateTime());
+            gatewayDistributionVOList.add(gatewayDistributionVO);
+        }
+        return gatewayDistributionVOList;
+    }
+
 }
+
 

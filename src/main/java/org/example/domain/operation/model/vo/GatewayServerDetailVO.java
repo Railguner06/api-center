@@ -1,10 +1,7 @@
-package org.example.domain.manage.model.vo;
+package org.example.domain.operation.model.vo;
 
 import java.util.Date;
 
-/**
- * 网关服务明细
- */
 public class GatewayServerDetailVO {
 
     /** 自增ID */
@@ -23,6 +20,14 @@ public class GatewayServerDetailVO {
     private Date createTime;
     /** 更新时间 */
     private Date updateTime;
+
+    public GatewayServerDetailVO() {
+    }
+
+    public GatewayServerDetailVO(String groupId, String gatewayId) {
+        this.groupId = groupId;
+        this.gatewayId = gatewayId;
+    }
 
     public Integer getId() {
         return id;
@@ -88,5 +93,4 @@ public class GatewayServerDetailVO {
         this.updateTime = updateTime;
     }
 }
-
 

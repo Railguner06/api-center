@@ -28,6 +28,16 @@ public class ConfigManageService implements IConfigManageService {
     }
 
     @Override
+    public List<GatewayServerDetailVO> queryGatewayServerDetailList() {
+        return configManageRepository.queryGatewayServerDetailList();
+    }
+
+    @Override
+    public List<GatewayDistributionVO> queryGatewayDistributionList() {
+        return configManageRepository.queryGatewayDistributionList();
+    }
+
+    @Override
     public boolean registerGatewayServerNode(String groupId, String gatewayId, String gatewayName, String gatewayAddress) {
         GatewayServerDetailVO gatewayServerDetailVO = configManageRepository.queryGatewayServerDetail(gatewayId, gatewayAddress);
         if (null == gatewayServerDetailVO) {
@@ -70,7 +80,23 @@ public class ConfigManageService implements IConfigManageService {
         return configManageRepository.queryGatewayDistribution(systemId);
     }
 
+    @Override
+    public List<ApplicationSystemVO> queryApplicationSystemList() {
+        return configManageRepository.queryApplicationSystemList(null);
+    }
+
+    @Override
+    public List<ApplicationInterfaceVO> queryApplicationInterfaceList() {
+        return configManageRepository.queryApplicationInterfaceList(null);
+    }
+
+    @Override
+    public List<ApplicationInterfaceMethodVO> queryApplicationInterfaceMethodList() {
+        return configManageRepository.queryApplicationInterfaceMethodList(null, null);
+    }
+
 }
+
 
 
 

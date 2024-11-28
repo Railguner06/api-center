@@ -10,6 +10,8 @@ public interface IConfigManageRepository {
 
     List<GatewayServerVO> queryGatewayServerList();
 
+    List<GatewayServerDetailVO> queryGatewayServerDetailList();
+
     boolean registerGatewayServerNode(String groupId, String gatewayId, String gatewayName, String gatewayAddress, Integer available);
 
     GatewayServerDetailVO queryGatewayServerDetail(String gatewayId, String gatewayAddress);
@@ -26,6 +28,9 @@ public interface IConfigManageRepository {
 
     String queryGatewayDistribution(String systemId);
 
+    List<GatewayDistributionVO> queryGatewayDistributionList();
+
 }
+
 
 
